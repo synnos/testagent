@@ -14,6 +14,10 @@ namespace TestAgent.Server
     {
         private FileServiceHost _fileService;
         private TestServiceHost _testService;
+        private string _uploadsDirectory;
+        private string _fileServiceStatus;
+        private string _testServiceStatus;
+        private string _agentStatus;
 
         public MainViewModel()
         {
@@ -21,6 +25,11 @@ namespace TestAgent.Server
 
             InitializeServices();
 
+            StartMonitoringStates();
+        }
+
+        private void StartMonitoringStates()
+        {
             // Launch the thread that monitors the services
             var monitorThread = new Thread(() =>
             {
@@ -55,12 +64,7 @@ namespace TestAgent.Server
             _testService = new TestServiceHost(9123, UploadsDirectory);
             _testService.LaunchService();
         }
-
-        private string _uploadsDirectory;
-        private string _fileServiceStatus;
-        private string _testServiceStatus;
-        private string _agentStatus;
-
+        
         public string UploadsDirectory
         {
             get { return _uploadsDirectory; }
