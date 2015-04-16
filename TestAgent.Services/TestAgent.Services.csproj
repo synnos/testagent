@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionState.cs" />
     <Compile Include="FileService\FileService.cs" />
     <Compile Include="FileService\FileServiceClientHost.cs" />
     <Compile Include="FileService\FileServiceHost.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="FileService\UploadAcknowledgement.cs" />
     <Compile Include="FileService\UploadRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestAgentClient.cs" />
     <Compile Include="TestService\ITestService.cs" />
     <Compile Include="TestService\ITestServiceCallback.cs" />
     <Compile Include="TestService\StartTestAcknowledgement.cs" />

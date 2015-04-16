@@ -187,6 +187,11 @@ namespace TestAgent.Services.TestService
                 Started = true
             };
         }
+
+        public bool AliveCheck()
+        {
+            return true;
+        }
         
         private static string GetClientSessionId()
         {

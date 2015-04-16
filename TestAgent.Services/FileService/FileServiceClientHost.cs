@@ -11,7 +11,7 @@ namespace TestAgent.Services.FileService
 
         public Uri ServiceAddress { get; private set; }
 
-        public CommunicationState State { get { return _factory == null ? CommunicationState.Closed : _factory.State; } }
+        public ConnectionState State { get { return _factory == null ? ConnectionState.Offline : ConnectionState.Online; } }
 
         public void Connect(string hostname, int portNumber)
         {

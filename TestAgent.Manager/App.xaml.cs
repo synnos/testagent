@@ -13,5 +13,9 @@ namespace TestAgent.Manager
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            InitializeComponent();
+        }
     }
 }

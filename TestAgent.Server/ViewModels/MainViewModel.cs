@@ -26,6 +26,8 @@ namespace TestAgent.Server
             InitializeServices();
 
             StartMonitoringStates();
+
+            DisplayName = "Test Agent";
         }
 
         private void StartMonitoringStates()

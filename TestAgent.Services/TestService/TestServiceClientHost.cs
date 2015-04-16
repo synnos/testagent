@@ -6,6 +6,11 @@ namespace TestAgent.Services.TestService
 {
     public class TestServiceClientHost : ITestServiceCallback
     {
+        public TestServiceClientHost()
+        {
+            State = ConnectionState.Offline;
+        }
+
         public event EventHandler<string> OutputReceived;
 
         protected virtual void OnOutputReceived(string e)
@@ -20,7 +25,7 @@ namespace TestAgent.Services.TestService
 
         public Uri ServiceAddress { get; private set; }
 
-        public CommunicationState State { get { return _factory == null ? CommunicationState.Closed : _factory.State; } }
+        public ConnectionState State { get; private set; }
 
         public void Connect(string hostname, int portNumber)
         {
@@ -39,17 +44,38 @@ namespace TestAgent.Services.TestService
             _factory.Endpoint.Binding.OpenTimeout = TimeSpan.FromSeconds(20);
             _factory.Endpoint.Binding.ReceiveTimeout = TimeSpan.MaxValue;
             _factory.Endpoint.Binding.SendTimeout = TimeSpan.MaxValue;
-
+            
             try
             {
                 Client = _factory.CreateChannel();
+                ((ICommunicationObject)Client).Faulted += ConnectionFaulted;
+                ((ICommunicationObject)Client).Closed += ConnectionClosed;
+                ((ICommunicationObject)Client).Opened += ConnectionOpened;
+
+                Client.Register(Environment.MachineName);
             }
             catch (Exception ex)
             {
+                State = ConnectionState.Offline;
                 Console.WriteLine("Exception occured: \n{0}", ex);
             }
         }
 
+        void ConnectionFaulted(object sender, EventArgs e)
+        {
+            State = ConnectionState.Offline;
+        }
+
+        void ConnectionClosed(object sender, EventArgs e)
+        {
+            State = ConnectionState.Offline;
+        }
+
+        void ConnectionOpened(object sender, EventArgs e)
+        {
+            State = ConnectionState.Online;
+        }
+        
         public void OnTestOutputChanged(string output)
         {
             OnOutputReceived(output);
