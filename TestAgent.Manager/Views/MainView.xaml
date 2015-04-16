@@ -14,7 +14,7 @@
                 <MenuItem Header="Cancel test run"/>
             </MenuItem>
             <MenuItem Header="Test Agents">
-                <MenuItem Header="New..."/>
+                <MenuItem x:Name="AddAgent" Header="Add..."/>
                 <MenuItem Header="Agents" ItemsSource="{Binding TestAgentNames}">
                     <MenuItem.ItemTemplate>
                         <DataTemplate>
@@ -34,7 +34,7 @@
         <TabControl Margin="0,20,0,0">
             <TabItem Header="Test Agents">
                 <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding Clients}" Background="#FFE5E5E5">
+                    <ItemsControl ItemsSource="{Binding Agents}" Background="#FFE5E5E5">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>

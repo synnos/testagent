@@ -135,8 +135,8 @@ namespace TestAgent.FormsManager
             _testClient.Connect(txtHostname.Text, 9123);
 
             txtHostname.Enabled =
-            btnConnect.Enabled = _fileClient.State != CommunicationState.Opened &&
-                                 _testClient.State != CommunicationState.Opened;
+            btnConnect.Enabled = _fileClient.State != Services.ConnectionState.Online &&
+                                 _testClient.State != Services.ConnectionState.Online;
 
             pnlMain.Enabled = !txtHostname.Enabled;
 
