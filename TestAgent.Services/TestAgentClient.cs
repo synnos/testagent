@@ -49,15 +49,21 @@ namespace TestAgent.Services
                 return;
             }
 
-            _fileClient = new FileServiceClientHost();
-            _fileClient.Connect(Hostname, Port);
+            // Do the connection on a separate thread to make sure we are not blocking the UI while connecting
+            var connectionThread = new Thread(() =>
+            {
+                _fileClient = new FileServiceClientHost();
+                _fileClient.Connect(Hostname, Port);
 
-            _testClient = new TestServiceClientHost();
-            _testClient.Connect(Hostname, Port);
+                _testClient = new TestServiceClientHost();
+                _testClient.Connect(Hostname, Port);
 
-            _isRunning = true;
+                _isRunning = true;
 
-            StartMonitoringConnectionStatus();
+                StartMonitoringConnectionStatus();
+            });
+            connectionThread.IsBackground = true;
+            connectionThread.Start();
         }
 
         private void StartMonitoringConnectionStatus()
