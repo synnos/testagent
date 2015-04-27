@@ -31,92 +31,12 @@ namespace TestAgent.FormsManager
 
         public virtual string[] LoadTests(string filename)
         {
+            var loader = new NUnitTestLoader();
+            var tests = loader.LoadTests(filename);
+
             var results = new List<string>();
-            var package = new TestPackage(filename);
-
-            CoreExtensions.Host.InitializeService();
-
-            var builder = new TestSuiteBuilder();
-
-            var suite = builder.Build(package);
-
-            foreach (object test in suite.Tests)
-            {
-                var testSuite = test as TestSuite;
-                if (testSuite == null) { continue; }
-                results.AddRange(GetSteps(testSuite));
-            }
-
-            CoreExtensions.Host.UnloadService();
-
-            return results.ToArray();
-        }
-
-        private static string[] GetSteps(TestSuite testSuite)
-        {
-            var results = new List<string>();
-
-            foreach (var testFixture in testSuite.Tests)
-            {
-                var fixture = testFixture as TestFixture;
-                if (fixture != null)
-                {
-                    results.AddRange(GetSteps(fixture));
-                }
-                else
-                {
-                    var suite = testFixture as TestSuite;
-                    if (suite != null)
-                    {
-                        results.AddRange(GetSteps(suite));
-                    }
-                }
-            }
-
-            return results.ToArray();
-        }
-
-        private static string[] GetSteps(TestFixture fixture)
-        {
-            var results = new List<string>();
-
-            foreach (var test in fixture.Tests)
-            {
-                var method = test as TestMethod;
-                if (method != null)
-                {
-                    results.Add(method.TestName.FullName);
-                }
-                else
-                {
-                    var suite = test as ParameterizedMethodSuite;
-                    if (suite != null)
-                    {
-                        var methodSuite = suite;
-                        results.AddRange(GetSteps(methodSuite));
-                    }
-                }
-            }
-
-            return results.ToArray();
-        }
-
-        private static string[] GetSteps(ParameterizedMethodSuite methodSuite)
-        {
-            var results = new List<string>();
-
-            foreach (var test1 in methodSuite.Tests)
-            {
-                var method = test1 as TestMethod;
-                if (method != null)
-                {
-                    if (results.All(test => test.ToString() != method.TestName.Name))
-                    {
-                        results.Add(method.TestName.Name);
-                    }
-                }
-            }
-
+            results.AddRange(tests.SelectMany(t=>t.Tests).Select(t=>t.Fullname));
+            results.AddRange(tests.SelectMany(t => t.Collections).SelectMany(t => t.Tests).Select(t => t.Fullname));
             return results.ToArray();
         }
 
