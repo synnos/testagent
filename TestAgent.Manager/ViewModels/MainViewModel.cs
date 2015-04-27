@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using Caliburn.Micro;
 using TestAgent.Services;
 
@@ -9,6 +12,8 @@ namespace TestAgent.Manager
     {
         private readonly List<TestAgentViewModel> _agents;
         private readonly IWindowManager _windowManager;
+        private string _agentsFileLocation;
+        private string _settingsFolder;
 
         public MainViewModel()
         {
@@ -17,12 +22,36 @@ namespace TestAgent.Manager
 
             _windowManager = new WindowManager();
 
+            _settingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TestAgentManager");
+
+            _agentsFileLocation = Path.Combine(_settingsFolder, "agents.cfg");
+
             LoadSavedAgents();
         }
 
         private void LoadSavedAgents()
         {
-            // TODO: Load agents from previous sessions
+            if (File.Exists(_agentsFileLocation))
+            {
+                var agents = TestAgentClient.ImportMultipleFromXml(_agentsFileLocation);
+                foreach (var testAgentClient in agents)
+                {
+                    testAgentClient.Connect();
+                    _agents.Add(new TestAgentViewModel(testAgentClient));
+                }
+                NotifyOfPropertyChange(() => TestAgentNames);
+                NotifyOfPropertyChange(() => Agents);
+            }
+        }
+
+        private void SaveAgents()
+        {
+            if (!Directory.Exists(_settingsFolder))
+            {
+                Directory.CreateDirectory(_settingsFolder);
+            }
+
+            TestAgentClient.ExportMultipleToXml(_agents.Select(a => a.Client), _agentsFileLocation);
         }
 
         public void AddAgent()
@@ -47,6 +76,11 @@ namespace TestAgent.Manager
         public TestAgentViewModel[] Agents
         {
             get { return _agents.ToArray(); }
+        }
+
+        public void OnClosing()
+        {
+            SaveAgents();
         }
     }
 }

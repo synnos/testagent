@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:manager="clr-namespace:TestAgent.Manager"
-        Title="MainView" Height="350" Width="525">
+        Title="MainView" Height="350" Width="525"
+        cal:Message.Attach="[Event Closing] = [Action OnClosing]">
     <Grid>
         <Menu Height="20" VerticalAlignment="Top">
             <MenuItem Header="File">

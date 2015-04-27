@@ -22,6 +22,11 @@ namespace TestAgent.Manager
             NotifyOfPropertyChange(() => ConnectionStatusColor);
         }
 
+        public TestAgentClient Client
+        {
+            get { return _client; }
+        }
+
         public string Hostname { get { return _client.Hostname; } }
 
         public string ConnectionStatus { get { return _client.IsConnected ? "Online" : "Offline"; } }
