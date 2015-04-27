@@ -8,7 +8,7 @@ using TestAgent.Services;
 
 namespace TestAgent.Manager
 {
-    class MainViewModel : Screen
+    class MainViewModel : Screen, ITestAgentManager
     {
         private readonly List<TestAgentViewModel> _agents;
         private readonly IWindowManager _windowManager;
@@ -37,7 +37,7 @@ namespace TestAgent.Manager
                 foreach (var testAgentClient in agents)
                 {
                     testAgentClient.Connect();
-                    _agents.Add(new TestAgentViewModel(testAgentClient));
+                    _agents.Add(new TestAgentViewModel(testAgentClient, this));
                 }
                 NotifyOfPropertyChange(() => TestAgentNames);
                 NotifyOfPropertyChange(() => Agents);
@@ -61,7 +61,7 @@ namespace TestAgent.Manager
             {
                 var client = new TestAgentClient(addAgent.Hostname, addAgent.Port);
                 client.Connect();
-                _agents.Add(new TestAgentViewModel(client));
+                _agents.Add(new TestAgentViewModel(client, this));
 
                 NotifyOfPropertyChange(() => TestAgentNames);
                 NotifyOfPropertyChange(() => Agents);
@@ -81,6 +81,17 @@ namespace TestAgent.Manager
         public void OnClosing()
         {
             SaveAgents();
+        }
+
+        public void Remove(TestAgentClient client)
+        {
+            var agent = _agents.FirstOrDefault(a => a.Client == client);
+            if (agent != null)
+            {
+                _agents.Remove(agent);
+                NotifyOfPropertyChange(() => TestAgentNames);
+                NotifyOfPropertyChange(() => Agents);
+            }
         }
     }
 }

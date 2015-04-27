@@ -101,5 +101,13 @@ namespace TestAgent.Services.TestService
         public void OnUnhandledExceptionInTest(string exceptionMessage, string exceptionStackTrace)
         {
         }
+
+        public void Disconnect()
+        {
+            if (_factory != null)
+            {
+                _factory.Close();
+            }
+        }
     }
 }

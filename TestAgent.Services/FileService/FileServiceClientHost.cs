@@ -39,5 +39,13 @@ namespace TestAgent.Services.FileService
                 Console.WriteLine("Exception occured: \n{0}", ex);
             }
         }
+
+        public void Disconnect()
+        {
+            if (_factory != null)
+            {
+                _factory.Close();
+            }
+        }
     }
 }

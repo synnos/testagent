@@ -118,6 +118,12 @@ namespace TestAgent.Services
 
         public int Port { get; private set; }
 
+        public void Disconnect()
+        {
+            _fileClient.Disconnect();
+            _testClient.Disconnect();
+        }
+
         public void ExportToXml(XmlWriter writer)
         {
             writer.WriteStartElement(AgentXmlTag);

@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\AddAgentViewModel.cs" />
+    <Compile Include="ViewModels\ITestAgentManager.cs" />
     <Compile Include="Views\AddAgentView.xaml.cs">
       <DependentUpon>AddAgentView.xaml</DependentUpon>
     </Compile>
