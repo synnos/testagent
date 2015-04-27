@@ -18,6 +18,8 @@ namespace TestAgent.Services
         private TestServiceClientHost _testClient;
         private bool _isConnected;
         private bool _isRunning;
+        private DateTime _timeOfLastConnectionFailure;
+        private Thread _connectionStatusMonitor;
         private const string AgentXmlTag = "TestAgentClient";
         private const string MultipleAgentsXmlTag = "TestAgentClients";
         private const string HostnameXmlTag = "TestAgentHostname";
@@ -35,6 +37,8 @@ namespace TestAgent.Services
         {
             Hostname = hostname;
             Port = port;
+            ReconnectionWaitTime = 10000; // If the connection fails then retry after 10 seconds
+            _timeOfLastConnectionFailure = DateTime.MinValue;
         }
 
         public void Connect()
@@ -58,20 +62,30 @@ namespace TestAgent.Services
 
         private void StartMonitoringConnectionStatus()
         {
-            var connectionStatusMonitor = new Thread(() =>
+            if (_connectionStatusMonitor == null || !_connectionStatusMonitor.IsAlive)
             {
-                while (_isRunning)
+                _connectionStatusMonitor = new Thread(() =>
                 {
-                    IsConnected = _fileClient.State == ConnectionState.Online &&
-                                  _testClient.State == ConnectionState.Online;
+                    while (_isRunning)
+                    {
+                        IsConnected = _fileClient.State == ConnectionState.Online &&
+                                      _testClient.State == ConnectionState.Online;
 
-                    Thread.Sleep(500);
-                }
-            });
-            connectionStatusMonitor.IsBackground = true;
-            connectionStatusMonitor.Name = string.Format("{0}_{1}_Monitor", Hostname, Port);
-            connectionStatusMonitor.Start();
+                        Thread.Sleep(500);
+
+                        if ((DateTime.Now - _timeOfLastConnectionFailure).TotalMilliseconds > ReconnectionWaitTime)
+                        {
+                            Connect();
+                        }
+                    }
+                });
+                _connectionStatusMonitor.IsBackground = true;
+                _connectionStatusMonitor.Name = string.Format("{0}_{1}_Monitor", Hostname, Port);
+                _connectionStatusMonitor.Start();
+            }
         }
+
+        public int ReconnectionWaitTime { get; set; }
 
         public bool IsConnected
         {
@@ -81,6 +95,11 @@ namespace TestAgent.Services
                 if (value == _isConnected)
                 {
                     return;
+                }
+
+                if (!value)
+                {
+                    _timeOfLastConnectionFailure = DateTime.Now;
                 }
 
                 _isConnected = value;
