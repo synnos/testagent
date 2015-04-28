@@ -3,15 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:manager="clr-namespace:TestAgent.Manager"
+        xmlns:core="clr-namespace:TestAgent.Core;assembly=TestAgent.Core"
         Title="MainView" Height="350" Width="525"
         cal:Message.Attach="[Event Closing] = [Action OnClosing]">
     <Grid>
         <Menu Height="20" VerticalAlignment="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Open..."/>
+                <MenuItem x:Name="OpenTests" Header="Open..."/>
             </MenuItem>
             <MenuItem Header="Tests">
-                <MenuItem Header="Run selected tests"/>
+                <MenuItem x:Name="RunSelectedTests" Header="Run selected tests"/>
                 <MenuItem Header="Cancel test run"/>
             </MenuItem>
             <MenuItem Header="Test Agents">
@@ -50,9 +51,25 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Tests">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <TreeView x:Name="TestsTree" Background="{x:Null}" ItemsSource="{Binding CurrentTests}">
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type manager:TestCollectionViewModel}" ItemsSource="{Binding Items}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSelected}"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type manager:TestDefinitionViewModel}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSelected}"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

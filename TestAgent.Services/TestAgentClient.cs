@@ -25,6 +25,14 @@ namespace TestAgent.Services
         private const string HostnameXmlTag = "TestAgentHostname";
         private const string PortXmlTag = "TestAgentPort";
 
+        public event EventHandler<string> TestOutputReceived;
+
+        protected virtual void OnTestOutputReceived(string e)
+        {
+            EventHandler<string> handler = TestOutputReceived;
+            if (handler != null) handler(this, e);
+        }
+
         public event EventHandler IsConnectedChanged;
 
         protected virtual void OnIsConnectedChanged()
@@ -57,6 +65,7 @@ namespace TestAgent.Services
 
                 _testClient = new TestServiceClientHost();
                 _testClient.Connect(Hostname, Port);
+                _testClient.OutputReceived += _testClient_OutputReceived;
 
                 _isRunning = true;
 
@@ -64,6 +73,11 @@ namespace TestAgent.Services
             });
             connectionThread.IsBackground = true;
             connectionThread.Start();
+        }
+
+        void _testClient_OutputReceived(object sender, string e)
+        {
+            OnTestOutputReceived(e);
         }
 
         private void StartMonitoringConnectionStatus()
@@ -117,6 +131,10 @@ namespace TestAgent.Services
         public string Hostname { get; private set; }
 
         public int Port { get; private set; }
+
+        public FileServiceClientHost FileService { get { return _fileClient; } }
+
+        public TestServiceClientHost TestService { get { return _testClient; } }
 
         public void Disconnect()
         {

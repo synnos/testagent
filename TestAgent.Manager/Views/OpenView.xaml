@@ -1,0 +1,24 @@
+﻿<Window x:Class="TestAgent.Manager.OpenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OpenView" Height="300" Width="366">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Height="17" Margin="10,19,0,0" TextWrapping="Wrap" Text="Tests:" VerticalAlignment="Top" Width="36"/>
+        <TextBox x:Name="TestFile" Height="26" Margin="52,16,43,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="SelectTest" Grid.Row="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Right" Width="35" Height="35" VerticalAlignment="Top" Margin="0,10,3,0" ToolTip="Select uploads directory">
+            <Path Width="20" Height="20" Stretch="Uniform" UseLayoutRounding="False" Fill="#FFECD91F" Data="F1 M 0,6.9975C -0.0300293,6.5675 0.0212402,6.25378 0.153717,6.05627C 0.286194,5.85876 0.609985,5.76001 1.125,5.76001L 22.8975,5.76001C 23.4125,5.76001 23.7325,5.85876 23.8575,6.05627C 23.9825,6.25378 24.03,6.5675 24,6.9975L 22.995,17.9625C 22.96,18.3925 22.865,18.7063 22.71,18.9037C 22.555,19.1013 22.22,19.2 21.705,19.2L 2.31744,19.2C 1.80249,19.2 1.46747,19.1013 1.3125,18.9037C 1.15747,18.7063 1.05496,18.3925 1.00494,17.9625L 0,6.9975 Z M 2.01749,4.32001L 2.37,1.21503C 2.42996,0.855042 2.58875,0.5625 2.84622,0.337524C 3.1037,0.112549 3.38995,0 3.70499,0L 7.64249,0C 8.4375,0 9.125,0.287537 9.70499,0.862549L 10.3799,1.53754C 10.96,2.11255 11.6475,2.40002 12.4424,2.40002L 20.6475,2.40002C 20.9625,2.40002 21.2637,2.49377 21.5512,2.68127C 21.8387,2.86877 22.0225,3.09503 22.1025,3.35999L 22.335,4.32001L 2.01749,4.32001 Z "/>
+        </Button>
+        <Button x:Name="Ok" IsDefault="True" ToolTip="Add" HorizontalAlignment="Right" Height="25" Margin="0,0,38,10" VerticalAlignment="Bottom" Width="25" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Path Fill="#FF3C7812" Stretch="Uniform" UseLayoutRounding="False" Data="F1 M 0,110L 47.6667,62L 102,117.333L 218.667,0L 266,48L 102,212.333L 0,110 Z " Width="15" Height="15" />
+        </Button>
+        <Button x:Name="Cancel" IsCancel="True" ToolTip="Cancel" HorizontalAlignment="Right" Height="25" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="25" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Path Width="15" Height="15" Stretch="Uniform" Fill="#FFAA2222" Data="F1 M 4.70432,0L 0.0480347,4.77802L 7.00842,11.6812L 0,18.7292L 4.70432,23.46L 11.6647,16.412L 18.6252,23.46L 23.3774,18.7774L 16.369,11.6812L 23.3294,4.77802L 18.6252,0L 11.6647,6.9986L 4.70432,0 Z "/>
+        </Button>
+        <TextBlock HorizontalAlignment="Left" Height="17" Margin="10,53,0,0" TextWrapping="Wrap" Text="Dependencies:" VerticalAlignment="Top" Width="89"/>
+        <ListBox Margin="10,90,10,56" ItemsSource="{Binding Dependencies}"/>
+        <Button x:Name="SelectDependencies" Grid.Row="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Right" Width="35" Height="35" VerticalAlignment="Top" Margin="0,50,3,0" ToolTip="Select uploads directory">
+            <Path Width="20" Height="20" Stretch="Uniform" UseLayoutRounding="False" Fill="#FFECD91F" Data="F1 M 0,6.9975C -0.0300293,6.5675 0.0212402,6.25378 0.153717,6.05627C 0.286194,5.85876 0.609985,5.76001 1.125,5.76001L 22.8975,5.76001C 23.4125,5.76001 23.7325,5.85876 23.8575,6.05627C 23.9825,6.25378 24.03,6.5675 24,6.9975L 22.995,17.9625C 22.96,18.3925 22.865,18.7063 22.71,18.9037C 22.555,19.1013 22.22,19.2 21.705,19.2L 2.31744,19.2C 1.80249,19.2 1.46747,19.1013 1.3125,18.9037C 1.15747,18.7063 1.05496,18.3925 1.00494,17.9625L 0,6.9975 Z M 2.01749,4.32001L 2.37,1.21503C 2.42996,0.855042 2.58875,0.5625 2.84622,0.337524C 3.1037,0.112549 3.38995,0 3.70499,0L 7.64249,0C 8.4375,0 9.125,0.287537 9.70499,0.862549L 10.3799,1.53754C 10.96,2.11255 11.6475,2.40002 12.4424,2.40002L 20.6475,2.40002C 20.9625,2.40002 21.2637,2.49377 21.5512,2.68127C 21.8387,2.86877 22.0225,3.09503 22.1025,3.35999L 22.335,4.32001L 2.01749,4.32001 Z "/>
+        </Button>
+
+    </Grid>
+</Window>

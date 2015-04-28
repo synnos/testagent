@@ -40,6 +40,12 @@
     <Reference Include="Caliburn.Micro.Platform">
       <HintPath>..\packages\Caliburn.Micro.2.0.2\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\packages\Windows7APICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+      <HintPath>..\packages\Windows7APICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -60,8 +66,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\TestCollectionViewModel.cs" />
+    <Compile Include="ViewModels\TestDefinitionViewModel.cs" />
+    <Compile Include="Views\OpenView.xaml.cs">
+      <DependentUpon>OpenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddAgentViewModel.cs" />
     <Compile Include="ViewModels\ITestAgentManager.cs" />
+    <Compile Include="ViewModels\OpenViewModel.cs" />
     <Compile Include="Views\AddAgentView.xaml.cs">
       <DependentUpon>AddAgentView.xaml</DependentUpon>
     </Compile>
@@ -73,6 +85,10 @@
       <DependentUpon>WarningView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\WarningViewModel.cs" />
+    <Page Include="Views\OpenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddAgentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +145,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestAgent.Core\TestAgent.Core.csproj">
+      <Project>{44C9EBD6-3C9F-4693-985D-37B0B8BC8D57}</Project>
+      <Name>TestAgent.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestAgent.Services\TestAgent.Services.csproj">
       <Project>{3F8F689A-CC66-4E43-87B6-A62E061BBECD}</Project>
       <Name>TestAgent.Services</Name>
