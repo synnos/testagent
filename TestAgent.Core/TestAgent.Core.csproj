@@ -54,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="EventArgs\TestInformationEventArgs.cs" />
+    <Compile Include="EventArgs\TestSummaryEventArgs.cs" />
+    <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="FilePackager.cs" />
     <Compile Include="ITestDefinition.cs" />
     <Compile Include="ITestLoader.cs" />
@@ -65,8 +67,9 @@
     <Compile Include="TestCollection.cs" />
     <Compile Include="TestDefinition.cs" />
     <Compile Include="TestInformation.cs" />
-    <Compile Include="TestResult.cs" />
+    <Compile Include="Enums\TestResult.cs" />
     <Compile Include="TestRunInformation.cs" />
+    <Compile Include="EventArgs\TestRunInformationEventArgs.cs" />
     <Compile Include="TestRunnerState.cs" />
     <Compile Include="TestRunSummary.cs" />
     <Compile Include="TestType.cs" />
@@ -82,6 +85,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

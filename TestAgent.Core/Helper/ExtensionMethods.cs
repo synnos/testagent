@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 using NUnit.Core;
 
 namespace TestAgent.Core
@@ -45,6 +40,5 @@ namespace TestAgent.Core
             writer.WriteString(elementValue.ToString());
             writer.WriteEndElement();
         }
-
     }
 }

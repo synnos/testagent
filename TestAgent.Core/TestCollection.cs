@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace TestAgent.Core
 {
+    /// <summary>
+    /// Class that holds many test definitions as a collection
+    /// </summary>
     public class TestCollection : ITestDefinition
     {
         private readonly List<TestCollection> _collections;
@@ -43,8 +45,6 @@ namespace TestAgent.Core
         public string Fullname { get { return Name; } set { Name = value; }}
 
         public string Name { get; set; }
-
-        
 
         public ITestDefinition[] Tests { get { return _tests.ToArray(); } }
         public TestCollection[] Collections { get { return _collections.ToArray(); } }

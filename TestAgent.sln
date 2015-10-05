@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgent.FormsManager", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgent.Server", "TestAgent.Server\TestAgent.Server.csproj", "{F891BB5C-8565-4BEE-A868-F2341BE16594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgent", "TestAgent\TestAgent.csproj", "{FDD4BD25-C758-4901-AFB1-01185EA7C8D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini", "Gemini\src\Gemini\Gemini.csproj", "{13DBFC87-C152-4A86-94B0-D9944BEEF647}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{F891BB5C-8565-4BEE-A868-F2341BE16594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F891BB5C-8565-4BEE-A868-F2341BE16594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F891BB5C-8565-4BEE-A868-F2341BE16594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD4BD25-C758-4901-AFB1-01185EA7C8D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD4BD25-C758-4901-AFB1-01185EA7C8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD4BD25-C758-4901-AFB1-01185EA7C8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD4BD25-C758-4901-AFB1-01185EA7C8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13DBFC87-C152-4A86-94B0-D9944BEEF647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13DBFC87-C152-4A86-94B0-D9944BEEF647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13DBFC87-C152-4A86-94B0-D9944BEEF647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13DBFC87-C152-4A86-94B0-D9944BEEF647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

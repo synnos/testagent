@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel;
 using TestAgent.Core;
-using TestAgent.Services.FileService;
 
 namespace TestAgent.Services.TestService
 {
@@ -36,62 +34,62 @@ namespace TestAgent.Services.TestService
             _testRunners.Add(TestType.NUnit, nunitTestRunner);
         }
 
-        void nunitTestRunner_UnhandledExceptionInTest(object sender, TestSummary e)
+        void nunitTestRunner_UnhandledExceptionInTest(object sender, TestSummaryEventArgs e)
         {
             if (_sessionCallbacks.ContainsKey(_currentSession))
             {
                 var notificationCallback = _sessionCallbacks[_currentSession];
                 if (notificationCallback != null)
                 {
-                    notificationCallback.OnUnhandledExceptionInTest(e.ExceptionMessage, e.ExceptionCallStack);
+                    notificationCallback.OnUnhandledExceptionInTest(e.Summary.ExceptionMessage, e.Summary.ExceptionCallStack);
                 }
             }
         }
 
-        void nunitTestRunner_TestStarted(object sender, TestInformation e)
+        void nunitTestRunner_TestStarted(object sender, TestInformationEventArgs e)
         {
             if (_sessionCallbacks.ContainsKey(_currentSession))
             {
                 var notificationCallback = _sessionCallbacks[_currentSession];
                 if (notificationCallback != null)
                 {
-                    notificationCallback.OnTestStarted(e.TestName);
+                    notificationCallback.OnTestStarted(e.Information.TestName);
                 }
             }
         }
 
-        void nunitTestRunner_TestRunStarted(object sender, TestRunInformation e)
+        void nunitTestRunner_TestRunStarted(object sender, TestRunInformationEventArgs e)
         {
             if (_sessionCallbacks.ContainsKey(_currentSession))
             {
                 var notificationCallback = _sessionCallbacks[_currentSession];
                 if (notificationCallback != null)
                 {
-                    notificationCallback.OnTestRunStarted(e.Filename, e.NumberOfTests);
+                    notificationCallback.OnTestRunStarted(e.Information.Filename, e.Information.NumberOfTests);
                 }
             }
         }
 
-        void nunitTestRunner_TestRunFinished(object sender, TestSummary e)
+        void nunitTestRunner_TestRunFinished(object sender, TestSummaryEventArgs e)
         {
             if (_sessionCallbacks.ContainsKey(_currentSession))
             {
                 var notificationCallback = _sessionCallbacks[_currentSession];
                 if (notificationCallback != null)
                 {
-                    notificationCallback.OnTestRunFinished(e.Result, e.ExceptionMessage, e.ExceptionCallStack);
+                    notificationCallback.OnTestRunFinished(e.Summary.Result, e.Summary.ExceptionMessage, e.Summary.ExceptionCallStack);
                 }
             }
         }
 
-        void nunitTestRunner_TestFinished(object sender, TestSummary e)
+        void nunitTestRunner_TestFinished(object sender, TestSummaryEventArgs e)
         {
             if (_sessionCallbacks.ContainsKey(_currentSession))
             {
                 var notificationCallback = _sessionCallbacks[_currentSession];
                 if (notificationCallback != null)
                 {
-                    notificationCallback.OnTestFinished(e.Result, e.ExceptionMessage, e.ExceptionCallStack);
+                    notificationCallback.OnTestFinished(e.Summary.Result, e.Summary.ExceptionMessage, e.Summary.ExceptionCallStack);
                 }
             }
         }

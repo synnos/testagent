@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace TestAgent.Core
 {
+    /// <summary>
+    /// Contains methods to package files together
+    /// </summary>
     public class FilePackager
     {
         /// <summary>
@@ -50,6 +53,12 @@ namespace TestAgent.Core
             foreach (var file in filenamesToCompress)
             {
                 string filename = Path.GetFileName(file);
+
+                if (string.IsNullOrEmpty(filename))
+                {
+                    throw new Exception("Could not get the full filename of " + file);
+                }
+
                 File.Copy(file, Path.Combine(directoryPath, filename));
             }
 

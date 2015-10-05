@@ -26,23 +26,23 @@ namespace TestAgent.Core
         /// <summary>
         /// Gets raised when a test run starts
         /// </summary>
-        event EventHandler<TestRunInformation> TestRunStarted;
+        event EventHandler<TestRunInformationEventArgs> TestRunStarted;
         /// <summary>
         /// Gets raised when a test run finishes
         /// </summary>
-        event EventHandler<TestSummary> TestRunFinished;
+        event EventHandler<TestSummaryEventArgs> TestRunFinished;
         /// <summary>
         /// Gets raised when a single test starts
         /// </summary>
-        event EventHandler<TestInformation> TestStarted;
+        event EventHandler<TestInformationEventArgs> TestStarted;
         /// <summary>
         /// Gets raised when a single test finishes
         /// </summary>
-        event EventHandler<TestSummary> TestFinished;
+        event EventHandler<TestSummaryEventArgs> TestFinished;
         /// <summary>
         /// Gets raised when there is an unhandled exception in a test
         /// </summary>
-        event EventHandler<TestSummary> UnhandledExceptionInTest;
+        event EventHandler<TestSummaryEventArgs> UnhandledExceptionInTest;
         /// <summary>
         /// Gets raised when there is any new output from the test being executed
         /// </summary>

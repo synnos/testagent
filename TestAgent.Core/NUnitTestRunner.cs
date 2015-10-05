@@ -6,7 +6,7 @@ using NUnit.Core.Filters;
 
 namespace TestAgent.Core
 {
-    public class NUnitTestRunner : EventListener, ITestRunner
+    public sealed class NUnitTestRunner : EventListener, ITestRunner
     {
         private TestRunnerState _state;
         private readonly RemoteTestRunner _testRunner;
@@ -79,55 +79,55 @@ namespace TestAgent.Core
 
         public event EventHandler StateChanged;
 
-        protected virtual void OnStateChanged()
+        protected void OnStateChanged()
         {
             EventHandler handler = StateChanged;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
-        public event EventHandler<TestRunInformation> TestRunStarted;
+        public event EventHandler<TestRunInformationEventArgs> TestRunStarted;
 
-        protected virtual void OnTestRunStarted(TestRunInformation e)
+        private void OnTestRunStarted(TestRunInformation e)
         {
-            EventHandler<TestRunInformation> handler = TestRunStarted;
-            if (handler != null) handler(this, e);
+            EventHandler<TestRunInformationEventArgs> handler = TestRunStarted;
+            if (handler != null) handler(this, new TestRunInformationEventArgs(e));
         }
 
-        public event EventHandler<TestSummary> TestRunFinished;
+        public event EventHandler<TestSummaryEventArgs> TestRunFinished;
 
-        protected virtual void OnTestRunFinished(TestSummary e)
+        private void OnTestRunFinished(TestSummary e)
         {
-            EventHandler<TestSummary> handler = TestRunFinished;
-            if (handler != null) handler(this, e);
+            EventHandler<TestSummaryEventArgs> handler = TestRunFinished;
+            if (handler != null) handler(this, new TestSummaryEventArgs(e));
         }
 
-        public event EventHandler<TestInformation> TestStarted;
+        public event EventHandler<TestInformationEventArgs> TestStarted;
 
-        protected virtual void OnTestStarted(TestInformation e)
+        private void OnTestStarted(TestInformation e)
         {
-            EventHandler<TestInformation> handler = TestStarted;
-            if (handler != null) handler(this, e);
+            EventHandler<TestInformationEventArgs> handler = TestStarted;
+            if (handler != null) handler(this, new TestInformationEventArgs(e));
         }
 
-        public event EventHandler<TestSummary> TestFinished;
+        public event EventHandler<TestSummaryEventArgs> TestFinished;
 
-        protected virtual void OnTestFinished(TestSummary e)
+        private void OnTestFinished(TestSummary e)
         {
-            EventHandler<TestSummary> handler = TestFinished;
-            if (handler != null) handler(this, e);
+            EventHandler<TestSummaryEventArgs> handler = TestFinished;
+            if (handler != null) handler(this, new TestSummaryEventArgs(e));
         }
 
-        public event EventHandler<TestSummary> UnhandledExceptionInTest;
+        public event EventHandler<TestSummaryEventArgs> UnhandledExceptionInTest;
 
-        protected virtual void OnUnhandledExceptionInTest(TestSummary e)
+        private void OnUnhandledExceptionInTest(TestSummary e)
         {
-            EventHandler<TestSummary> handler = UnhandledExceptionInTest;
-            if (handler != null) handler(this, e);
+            EventHandler<TestSummaryEventArgs> handler = UnhandledExceptionInTest;
+            if (handler != null) handler(this, new TestSummaryEventArgs(e));
         }
 
         public event EventHandler<string> TestOutput;
 
-        protected virtual void OnTestOutput(string e)
+        protected void OnTestOutput(string e)
         {
             EventHandler<string> handler = TestOutput;
             if (handler != null) handler(this, e);
