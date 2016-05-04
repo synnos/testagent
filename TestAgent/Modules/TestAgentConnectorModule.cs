@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Media.Imaging;
 using Gemini.Framework;
 
 namespace TestAgent.Modules
